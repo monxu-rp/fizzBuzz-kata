@@ -18,11 +18,11 @@ class FizzBuzz
     public function process($input): string
     {
         $response = '';
-        if ($this->isisDivisibleBy($input, self::DIVISIBLE_BY_THREE)) {
+        if ($this->isDivisibleBy($input, self::DIVISIBLE_BY_THREE)) {
             $response .= 'Fizz';
         }
 
-        if ($this->isisDivisibleBy($input, self::DIVISIBLE_BY_FIVE)) {
+        if ($this->isDivisibleBy($input, self::DIVISIBLE_BY_FIVE)) {
             $response .= 'Buzz';
         }
 
@@ -31,12 +31,12 @@ class FizzBuzz
 
     /**
      * @param int $input
-     * @param int $multiple
+     * @param int $divisibleBy
      *
      * @return bool
      */
-    private function isisDivisibleBy(int $input, int $multiple): bool
+    private function isDivisibleBy(int $input, int $divisibleBy): bool
     {
-        return $input % $multiple === 0;
+        return $input % $divisibleBy === 0;
     }
 }
