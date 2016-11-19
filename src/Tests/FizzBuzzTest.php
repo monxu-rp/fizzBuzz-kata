@@ -12,21 +12,16 @@ class FizzBuzzTest extends \PHPUnit_Framework_TestCase
     /** @var FizzBuzz */
     private $fizzBuzz;
 
-    public function setUp()
-    {
-        $this->fizzBuzz = new FizzBuzz();
-    }
-
     /**
      * @test
      * @dataProvider providerFizzBuzz
      *
-     * @param int    $input
-     * @param string $expected
+     * @param mixed    $input
+     * @param mixed $expected
      */
-    public function itShouldReturnFizzBuzz(int $input, string $expected)
+    public function itShouldReturnFizzBuzz($input, $expected)
     {
-        $this->assertSame($expected, $this->fizzBuzz->process($input));
+        $this->assertEquals($expected, $input);
     }
 
     /**
@@ -34,17 +29,24 @@ class FizzBuzzTest extends \PHPUnit_Framework_TestCase
      */
     public function providerFizzBuzz():array
     {
-        return [
-            [1, '1'],
-            [2, '2'],
-            [3, 'Fizz'],
-            [4, 4],
-            [5, 'Buzz'],
-            [6, 'Fizz'],
-            [10, 'Buzz'],
-            [15, 'FizzBuzz'],
-            [30, 'FizzBuzz'],
-            [100, 'Buzz'],
+        $this->fizzBuzz = new FizzBuzz();
+        $data = $this->fizzBuzz->createSequence();
+
+        $testCases = [
+            'T0' => [count($data), 100],
+            'T1' => [$data[1], 1],
+            'T2' => [$data[2], 2],
+            'T3' => [$data[3], 'Fizz'],
+            'T4' => [$data[4], 4],
+            'T5' => [$data[5], 'Buzz'],
+            'T6' => [$data[6], 'Fizz'],
+            'T10' => [$data[10], 'Buzz'],
+            'T13' => [$data[13], 'Fizz'],
+            'T15' => [$data[15], 'FizzBuzz'],
+            'T20' => [$data[20], 'Buzz'],
+            'T53' => [$data[53], 'FizzBuzz'],
         ];
+
+        return $testCases;
     }
 }
