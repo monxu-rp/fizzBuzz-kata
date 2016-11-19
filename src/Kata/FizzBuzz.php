@@ -9,6 +9,8 @@ class FizzBuzz
 {
     const DIVISIBLE_BY_THREE = 3;
     const DIVISIBLE_BY_FIVE = 5;
+    const FIZZ = 'Fizz';
+    const BUZZ = 'Buzz';
 
     /**
      * @param int $input
@@ -19,11 +21,11 @@ class FizzBuzz
     {
         $response = '';
         if ($this->isDivisibleBy($input, self::DIVISIBLE_BY_THREE)) {
-            $response .= 'Fizz';
+            $response .= self::FIZZ;
         }
 
         if ($this->isDivisibleBy($input, self::DIVISIBLE_BY_FIVE)) {
-            $response .= 'Buzz';
+            $response .= self::BUZZ;
         }
 
         return ($response) ? $response : (string) $input;
