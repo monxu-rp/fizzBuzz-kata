@@ -2,21 +2,35 @@
 
 namespace Kata\Tests;
 
-use Kata\FizzBuzz;
+use Kata\Decorator\PrintNormalText;
+use Kata\FizzBuzz\Buzz;
+use Kata\FizzBuzz\Fizz;
+use Kata\ReportElements;
+use Kata\Element;
+use Kata\Repository\SequenceRepositoryInMemoryImpl;
 
 /**
  * Class FizzBuzzTest.
  */
 class FizzBuzzTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var FizzBuzz */
+    /** @var ReportElements */
     private $fizzBuzz;
+
+    public function setUp()
+    {
+        $elementTypes = [new Fizz(), new Buzz()];
+        $element = new Element($elementTypes, new PrintNormalText());
+        $repositoryInMemory = new SequenceRepositoryInMemoryImpl();
+        $this->fizzBuzz = new ReportElements($element, $repositoryInMemory);
+        $this->fizzBuzz->getReport();
+    }
 
     /**
      * @test
      * @dataProvider providerFizzBuzz
      *
-     * @param mixed    $input
+     * @param mixed $input
      * @param mixed $expected
      */
     public function itShouldReturnFizzBuzz($input, $expected)
@@ -29,22 +43,26 @@ class FizzBuzzTest extends \PHPUnit_Framework_TestCase
      */
     public function providerFizzBuzz():array
     {
-        $this->fizzBuzz = new FizzBuzz();
-        $data = $this->fizzBuzz->createSequence();
+        $elementTypes = [new Fizz(), new Buzz()];
+        $element = new Element($elementTypes, new PrintNormalText());
+        $repositoryInMemory = new SequenceRepositoryInMemoryImpl();
+        $this->fizzBuzz = new ReportElements($element, $repositoryInMemory);
+        $report = $this->fizzBuzz->getReport();
 
         $testCases = [
-            'T0' => [count($data), 100],
-            'T1' => [$data[1], 1],
-            'T2' => [$data[2], 2],
-            'T3' => [$data[3], 'Fizz'],
-            'T4' => [$data[4], 4],
-            'T5' => [$data[5], 'Buzz'],
-            'T6' => [$data[6], 'Fizz'],
-            'T10' => [$data[10], 'Buzz'],
-            'T13' => [$data[13], 'Fizz'],
-            'T15' => [$data[15], 'FizzBuzz'],
-            'T20' => [$data[20], 'Buzz'],
-            'T53' => [$data[53], 'FizzBuzz'],
+            'TC0' => [count($report), 100],
+            'TC1' => [$report[1], 1],
+            'TC2' => [$report[2], 2],
+            'TC3' => [$report[3], 'Fizz'],
+            'TC4' => [$report[4], 4],
+            'TC5' => [$report[5], 'Buzz'],
+            'TC6' => [$report[6], 'Fizz'],
+            'TC10' => [$report[10], 'Buzz'],
+            'TC13' => [$report[13], 'Fizz'],
+            'TC15' => [$report[15], 'FizzBuzz'],
+            'TC20' => [$report[20], 'Buzz'],
+            'TC53' => [$report[53], 'FizzBuzz'],
+            'TC100' => [$report[100], 'Buzz']
         ];
 
         return $testCases;

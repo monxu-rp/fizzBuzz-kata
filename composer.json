@@ -2,8 +2,8 @@
     "name": "monxu-rp/php-kata",
     "description": "Starting PHP Kata",
     "license": "MIT",
-    "keywords": ["php","kata","TDD"],
-    "homepage": "https://github.com/monxu-rp/php-kata",
+    "keywords": ["php","kata","TDD", "FizzBuzz"],
+    "homepage": "https://github.com/monxu-rp/fizzBuzz-kata",
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "5.7.*@dev",
